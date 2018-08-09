@@ -1,5 +1,10 @@
 pipeline {
   agent {
+   
+    libraries {
+    lib("SharedLibs")
+  }
+   
     node {
       label 'jdk8'
     }
@@ -14,25 +19,10 @@ pipeline {
         echo "${TEST_USER_PSW}"
       }
     }
-  stage('Testing') {
-        parallel {
-          stage('Java 8') {
-            agent { label 'jdk9' }
-            steps {
-              container('maven8') {
-                sh 'mvn -v'
-              }
-            }
-          }
-          stage('Java 9') {
-            agent { label 'jdk8' }
-            steps {
-              container('maven9') {
-                sh 'mvn -v'
-              }
-            }
-          }
-        }
+ stage('Shared Lib') {
+         steps {
+             helloWorld("Jenkins")
+         }
       }
    
   }
