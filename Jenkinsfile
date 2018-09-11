@@ -5,7 +5,6 @@ pipeline {
       steps {
         echo 'Hi'
         sh 'java -version'
-        archiveArtifacts artifacts: '*.sh', fingerprint: true
       }
     }
   }
